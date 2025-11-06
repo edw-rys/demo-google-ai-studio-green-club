@@ -67,7 +67,7 @@ export default function LoginScreen() {
                 </div>
                 <div className="mt-6">
                     <button onClick={login} className="w-full bg-[#2E7D32] text-white font-bold py-3.5 rounded-lg text-lg hover:bg-green-800 transition-colors">
-                        Ingresar ahora (sin validar)
+                        Ingresar ahora
                     </button>
                 </div>
                  <div className="text-center mt-4">

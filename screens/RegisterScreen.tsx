@@ -46,7 +46,7 @@ export default function RegisterScreen() {
                 </div>
                 <div className="mt-6">
                     <button onClick={login} className="w-full bg-[#2E7D32] text-white font-bold py-3.5 rounded-lg text-lg hover:bg-green-800 transition-colors">
-                        Crear cuenta (sin validar)
+                        Crear cuenta
                     </button>
                 </div>
                  <div className="text-center mt-4">
