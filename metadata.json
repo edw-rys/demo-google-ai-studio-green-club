@@ -1,0 +1,5 @@
+{
+  "name": "demo-google-sudio-greenclub",
+  "description": "A loyalty application for Green Club members to accumulate and redeem points. This version showcases multiple home screen layouts with a focus on UX, gamification, and clear calls-to-action.",
+  "requestFramePermissions": []
+}
