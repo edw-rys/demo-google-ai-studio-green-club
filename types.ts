@@ -28,6 +28,14 @@ export enum Screen {
   SelectGoal = 'SelectGoal',
   AdMaterials = 'AdMaterials',
   EditProfile = 'EditProfile',
+
+  // V2 Screens
+  HomeScreenv2 = 'HomeScreenv2',
+  RewardDetailv2 = 'RewardDetailv2',
+  MaterialsScreenv2 = 'MaterialsScreenv2',
+  ProfileScreenv2 = 'ProfileScreenv2',
+  MaterialDetail = 'MaterialDetail',
+  MaterialVideo = 'MaterialVideo',
 }
 
 export interface User {
@@ -86,5 +94,17 @@ export interface FaqItem {
   answer: string;
 }
 
-
 export type HomeVariant = 'Scanner-first' | 'Goal-first' | 'Promos-first';
+
+export interface Material {
+  id: string;
+  type: 'Artículo' | 'Imagen' | 'Video';
+  title: string;
+  description: string;
+  thumbnailUrl: string;
+  levelRequired?: Level;
+  content?: {
+    text: { title: string, body: string }[];
+    images: string[];
+  };
+}

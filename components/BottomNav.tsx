@@ -7,16 +7,18 @@ const BottomNav: React.FC = () => {
   const { activeTab, setActiveTab, setCurrentScreen } = useAppContext();
 
   const navItems = [
-    { label: 'Inicio', icon: HomeIcon, screen: Screen.Home },
+    { label: 'Inicio', icon: HomeIcon, screen: Screen.HomeScreenv2 },
     { label: 'Recompensas', icon: RewardIcon, screen: Screen.Rewards },
-    { label: 'Materiales', icon: MaterialsIcon, screen: Screen.Materials },
-    { label: 'Mi Perfil', icon: ProfileIcon, screen: Screen.Profile },
+    { label: 'Materiales', icon: MaterialsIcon, screen: Screen.MaterialsScreenv2 },
+    { label: 'Mi Perfil', icon: ProfileIcon, screen: Screen.ProfileScreenv2 },
   ];
 
   const handlePress = (screen: Screen) => {
     setActiveTab(screen);
     setCurrentScreen(screen);
   };
+  
+  const currentNavScreens = navItems.map(item => item.screen);
 
   return (
     <div className="absolute bottom-0 left-0 w-full h-20 bg-white/70 dark:bg-neutral-800/70 backdrop-blur-lg border-t border-black/5 dark:border-white/10 flex justify-around items-center z-30">

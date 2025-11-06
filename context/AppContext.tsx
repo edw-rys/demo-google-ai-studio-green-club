@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react';
-import { User, Reward, Screen } from '../types';
+// FIX: Import the Material type to use it in the AppContextType interface.
+import { User, Reward, Screen, Material } from '../types';
 
 interface AppContextType {
   user: User;
@@ -12,6 +13,8 @@ interface AppContextType {
   setActiveTab: (tab: Screen) => void;
   selectedReward: Reward | null;
   scanResult: { points: number, code: string, timestamp: string } | null;
+  // FIX: Add selectedMaterial to the context type to make it available to components that use this context.
+  selectedMaterial: Material | null;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);

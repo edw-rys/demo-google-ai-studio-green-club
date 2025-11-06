@@ -19,7 +19,7 @@ export default function RewardsScreen() {
     const filteredRewards = filter === 'Todos' ? rewards : rewards.filter(r => r.category === filter);
 
     const handleRewardClick = (reward: Reward) => {
-        setCurrentScreen(ScreenEnum.RewardDetail, reward);
+        setCurrentScreen(ScreenEnum.RewardDetailv2, reward);
     }
 
     return (

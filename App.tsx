@@ -23,6 +23,14 @@ import SelectGoalScreen from './screens/SelectGoalScreen';
 import AdMaterialsScreen from './screens/AdMaterialsScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 
+// Import V2 and new screens
+import HomeScreenv2 from './screens/HomeScreenv2';
+import RewardDetailScreenv2 from './screens/RewardDetailScreenv2';
+import MaterialsScreenv2 from './screens/MaterialsScreenv2';
+import ProfileScreenv2 from './screens/ProfileScreenv2';
+import MaterialDetailScreen from './screens/MaterialDetailScreen';
+import MaterialVideoScreen from './screens/MaterialVideoScreen';
+
 import BottomNav from './components/BottomNav';
 
 
@@ -42,8 +50,8 @@ export default function App() {
   const [rewards] = useState<Reward[]>(REWARDS);
 
   // Navigation state
-  const [currentScreen, setCurrentScreenInternal] = useState<Screen>(Screen.Home);
-  const [activeTab, setActiveTab] = useState<Screen>(Screen.Home);
+  const [currentScreen, setCurrentScreenInternal] = useState<Screen>(Screen.HomeScreenv2);
+  const [activeTab, setActiveTab] = useState<Screen>(Screen.HomeScreenv2);
   const [screenData, setScreenData] = useState<any>(null);
 
   const setCurrentScreen = (screen: Screen, data: any = null) => {
@@ -71,17 +79,29 @@ export default function App() {
     setCurrentScreen,
     activeTab,
     setActiveTab,
-    selectedReward: screenData as Reward, // Simplified for this context
-    scanResult: screenData as { points: number, code: string, timestamp: string },
+    selectedReward: screenData,
+    scanResult: screenData,
+    selectedMaterial: screenData,
   }), [user, rewards, theme, currentScreen, activeTab, screenData]);
 
   const renderScreen = () => {
     switch (currentScreen) {
-        case Screen.Home: return <HomeScreen />;
+        case Screen.Home: return <HomeScreenv2 />; // Default to v2
         case Screen.Rewards: return <RewardsScreen />;
-        case Screen.Materials: return <MaterialsScreen />;
-        case Screen.Profile: return <ProfileScreen />;
-        case Screen.RewardDetail: return <RewardDetailScreen />;
+        case Screen.Materials: return <MaterialsScreenv2 />; // Default to v2
+        case Screen.Profile: return <ProfileScreenv2 />; // Default to v2
+
+        // Original Screens (kept for reference, but navigation points to new ones)
+        case Screen.HomeScreenv2: return <HomeScreenv2 />;
+        case Screen.RewardDetail: return <RewardDetailScreenv2 />; // Default to v2
+        case Screen.RewardDetailv2: return <RewardDetailScreenv2 />;
+        case Screen.MaterialsScreenv2: return <MaterialsScreenv2 />;
+        case Screen.ProfileScreenv2: return <ProfileScreenv2 />;
+
+        // New Material Screens
+        case Screen.MaterialDetail: return <MaterialDetailScreen />;
+        case Screen.MaterialVideo: return <MaterialVideoScreen />;
+
         case Screen.Scan: return <ScanScreen />;
         case Screen.ScanSuccess: return <ScanResultScreen status="success" />;
         case Screen.ScanInvalid: return <ScanResultScreen status="invalid" />;
@@ -97,17 +117,17 @@ export default function App() {
         case Screen.SelectGoal: return <SelectGoalScreen />;
         case Screen.AdMaterials: return <AdMaterialsScreen />;
         case Screen.EditProfile: return <EditProfileScreen />;
-        default: return <HomeScreen />;
+        default: return <HomeScreenv2 />;
     }
   };
 
-  const isTabView = [Screen.Home, Screen.Rewards, Screen.Materials, Screen.Profile].includes(currentScreen);
+  const isTabView = [Screen.HomeScreenv2, Screen.Rewards, Screen.MaterialsScreenv2, Screen.ProfileScreenv2].includes(currentScreen);
 
   return (
     <AppContextProvider value={appContextValue}>
       <div className="w-full min-h-screen bg-neutral-200 dark:bg-black flex justify-center p-0 sm:p-4">
         <div className="w-full max-w-sm h-screen sm:h-[844px] sm:max-h-[844px] flex flex-col bg-[#ECEFF1] dark:bg-neutral-900 shadow-lg relative sm:rounded-[30px] overflow-hidden">
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col" style={{ overflow: 'auto' }}>
             {renderScreen()}
           </div>
           {isTabView && <BottomNav />}
