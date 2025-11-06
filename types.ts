@@ -11,6 +11,11 @@ export enum Screen {
   Materials = 'Materiales',
   Profile = 'Mi Perfil',
 
+  // Auth Flow
+  Onboarding = 'Onboarding',
+  Login = 'Login',
+  Register = 'Register',
+
   // Sub-screens & States
   RewardDetail = 'RewardDetail',
   Scan = 'Scan',

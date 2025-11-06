@@ -12,7 +12,7 @@ const levelBadges = {
 };
 
 const ProfileHeader = () => {
-    const { user, setCurrentScreen } = useAppContext();
+    const { user } = useAppContext();
     return (
         <header className="p-4 text-center relative flex-shrink-0">
             <img src={user.avatarUrl} alt="Avatar" className="w-20 h-20 rounded-full border-4 border-white dark:border-neutral-800 shadow-lg mx-auto" />
@@ -127,6 +127,7 @@ const ProfileMenuItem = ({ icon: Icon, label, screen }: { icon: React.ElementTyp
 
 export default function ProfileScreenv2() {
     const [activeTab, setActiveTab] = useState('Mis Puntos');
+    const { logout } = useAppContext();
 
     return (
         <div className="flex-1 flex flex-col h-full bg-[#ECEFF1] dark:bg-neutral-900">
@@ -148,7 +149,7 @@ export default function ProfileScreenv2() {
                     <ProfileMenuItem icon={QuestionMarkCircleIcon} label="Ayuda / FAQ" screen={ScreenEnum.FAQ} />
                 </div>
                 <div className="mt-6 text-center">
-                    <button className="flex items-center justify-center gap-2 mx-auto text-red-500 font-semibold px-4 py-2 rounded-lg hover:bg-red-500/10 transition-colors">
+                    <button onClick={logout} className="flex items-center justify-center gap-2 mx-auto text-red-500 font-semibold px-4 py-2 rounded-lg hover:bg-red-500/10 transition-colors">
                         <ArrowLeftOnRectangleIcon className="w-5 h-5"/>
                         Cerrar sesión
                     </button>
