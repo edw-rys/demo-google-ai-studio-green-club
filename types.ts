@@ -1,3 +1,6 @@
+// FIX: Import 'React' to use React.ElementType.
+import React from 'react';
+
 export enum Level {
   Bronze = 'Hoja de Bronce',
   Silver = 'Hoja de Plata',
@@ -15,6 +18,8 @@ export enum Screen {
   Onboarding = 'Onboarding',
   Login = 'Login',
   Register = 'Register',
+  ForgotPassword = 'ForgotPassword',
+  EnterCode = 'EnterCode',
 
   // Sub-screens & States
   RewardDetail = 'RewardDetail',

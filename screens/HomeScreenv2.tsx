@@ -58,7 +58,7 @@ const EmprendedorBadge = () => (
 
 
 export default function HomeScreenv2() {
-  const { user, toggleTheme, theme, setCurrentScreen } = useAppContext();
+  const { user, setCurrentScreen } = useAppContext();
   const [variant, setVariant] = useState<HomeVariant>('Scanner-first');
   const [isLoading, setIsLoading] = useState(true);
   const [isOffline] = useState(false); // Set to true to test offline banner
@@ -144,12 +144,6 @@ export default function HomeScreenv2() {
 
   return (
     <div className='flex-1 flex flex-col'>
-      <div className="absolute top-2 right-2 z-50">
-          <button onClick={toggleTheme} className="p-2 rounded-full bg-white/50 dark:bg-black/50 backdrop-blur-sm">
-              {theme === 'light' ? <MoonIcon className="w-5 h-5" /> : <SunIcon className="w-5 h-5" />}
-          </button>
-      </div>
-      
       <main className="flex-1 overflow-y-auto pb-24">
         {isOffline && <OfflineBanner />}
         <AppBar user={user} />

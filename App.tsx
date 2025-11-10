@@ -31,22 +31,16 @@ import MaterialVideoScreen from './screens/MaterialVideoScreen';
 import OnboardingScreen from './screens/OnboardingScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import EnterCodeScreen from './screens/EnterCodeScreen';
+
 
 import BottomNav from './components/BottomNav';
 import Toast from './components/Toast';
 
 
 export default function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const storedTheme = window.localStorage.getItem('theme');
-      if (storedTheme === 'dark' || storedTheme === 'light') {
-        return storedTheme;
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'light';
-  });
+  const [theme] = useState<'light' | 'dark'>('light');
   
   const [user] = useState<User>(MOCK_USER);
   const [rewards] = useState<Reward[]>(REWARDS);
@@ -54,11 +48,15 @@ export default function App() {
   const [toast, setToastState] = useState<{message: string, id: number} | null>(null);
 
   // Navigation state
-  const [currentScreen, setCurrentScreenInternal] = useState<Screen>(Screen.Onboarding);
+  const [currentScreen, setCurrentScreenInternal] = useState<Screen>(Screen.Login);
   const [activeTab, setActiveTab] = useState<Screen>(Screen.HomeScreenv2);
   const [screenData, setScreenData] = useState<any>(null);
 
   const setCurrentScreen = (screen: Screen, data: any = null) => {
+      const isTabView = [Screen.HomeScreenv2, Screen.Rewards, Screen.MaterialsScreenv2, Screen.ProfileScreenv2].includes(screen);
+      if (isTabView) {
+          setActiveTab(screen);
+      }
       setCurrentScreenInternal(screen);
       setScreenData(data);
   };
@@ -80,20 +78,14 @@ export default function App() {
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove(theme === 'light' ? 'dark' : 'light');
-    root.classList.add(theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
+    root.classList.remove('dark');
+    localStorage.setItem('theme', 'light');
+  }, []);
 
   const appContextValue = useMemo(() => ({
     user,
     rewards,
     theme,
-    toggleTheme,
     currentScreen,
     setCurrentScreen,
     activeTab,
@@ -113,7 +105,9 @@ export default function App() {
           case Screen.Onboarding: return <OnboardingScreen />;
           case Screen.Login: return <LoginScreen />;
           case Screen.Register: return <RegisterScreen />;
-          default: return <OnboardingScreen />;
+          case Screen.ForgotPassword: return <ForgotPasswordScreen />;
+          case Screen.EnterCode: return <EnterCodeScreen />;
+          default: return <LoginScreen />;
       }
   }
 
@@ -169,8 +163,8 @@ export default function App() {
 
   return (
     <AppContextProvider value={appContextValue}>
-      <div className="w-full min-h-screen bg-neutral-200 dark:bg-black flex justify-center p-0 sm:p-4">
-        <div className="w-full max-w-sm h-screen sm:h-[844px] sm:max-h-[844px] flex flex-col bg-[#ECEFF1] dark:bg-neutral-900 shadow-lg relative sm:rounded-[30px] overflow-hidden" style={{ maxHeight: '100vh'}}>
+      <div className="w-full min-h-screen bg-neutral-200 flex justify-center p-0 sm:p-4">
+        <div className="w-full max-w-sm h-screen sm:h-[844px] sm:max-h-[844px] flex flex-col bg-[#ECEFF1] shadow-lg relative sm:rounded-[30px] overflow-hidden" style={{ maxHeight: '100vh'}}>
           {isAuthenticated ? renderMainApp() : renderAuthFlow()}
           <Toast />
         </div>

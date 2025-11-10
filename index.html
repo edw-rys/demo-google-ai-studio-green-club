@@ -14,24 +14,11 @@
         font-family: 'Inter', sans-serif;
         -webkit-tap-highlight-color: transparent;
       }
-      .dark .dark\:bg-neutral-900 { background-color: #171717; }
-      .dark .dark\:bg-neutral-800 { background-color: #262626; }
-      .dark .dark\:text-neutral-200 { color: #e5e5e5; }
-      .dark .dark\:text-neutral-400 { color: #a3a3a3; }
-      .dark .dark\:border-neutral-700 { border-color: #404040; }
 
       /* Hide scrollbar for carousels */
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-    <script>
-      // Prevents flash of light mode when dark mode is enabled
-      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    </script>
 <script type="importmap">
 {
   "imports": {

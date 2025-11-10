@@ -51,7 +51,8 @@ const VariantSwitcher: React.FC<{
 
 
 export default function HomeScreen() {
-  const { user, toggleTheme, theme, setCurrentScreen } = useAppContext();
+  // FIX: Removed toggleTheme as it's not implemented in the context.
+  const { user, theme, setCurrentScreen } = useAppContext();
   const [variant, setVariant] = useState<HomeVariant>('Scanner-first');
   const [isLoading, setIsLoading] = useState(true);
   const [isOffline] = useState(false); // Set to true to test offline banner
@@ -136,11 +137,13 @@ export default function HomeScreen() {
 
   return (
     <div className='flex-1 flex flex-col'>
+      {/* FIX: Removed theme toggle button as the functionality is not implemented.
       <div className="absolute top-2 right-2 z-50">
           <button onClick={toggleTheme} className="p-2 rounded-full bg-white/50 dark:bg-black/50 backdrop-blur-sm">
               {theme === 'light' ? <MoonIcon className="w-5 h-5" /> : <SunIcon className="w-5 h-5" />}
           </button>
       </div>
+      */}
       
       <main className="flex-1 overflow-y-auto pb-24">
         {isOffline && <OfflineBanner />}

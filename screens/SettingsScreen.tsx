@@ -1,7 +1,5 @@
 import React from 'react';
 import Screen from '../components/Screen';
-import { useAppContext } from '../context/AppContext';
-import { MoonIcon, SunIcon } from '../components/icons';
 
 const SettingsSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <div>
@@ -27,17 +25,9 @@ const Toggle: React.FC<{ checked: boolean; onChange: () => void }> = ({ checked,
 
 
 export default function SettingsScreen() {
-    const { theme, toggleTheme } = useAppContext();
     return (
         <Screen title="Configuración">
             <SettingsSection title="PREFERENCIAS">
-                <SettingsRow label="Tema">
-                    <div className="flex items-center gap-2">
-                        <SunIcon className={`w-6 h-6 ${theme === 'light' ? 'text-[#FB8C00]' : 'text-gray-400'}`} />
-                        <Toggle checked={theme === 'dark'} onChange={toggleTheme} />
-                        <MoonIcon className={`w-6 h-6 ${theme === 'dark' ? 'text-[#FB8C00]' : 'text-gray-400'}`} />
-                    </div>
-                </SettingsRow>
                 <SettingsRow label="Idioma" onClick={() => {}}>
                     <span className="font-semibold text-gray-500 dark:text-neutral-400">Español</span>
                 </SettingsRow>

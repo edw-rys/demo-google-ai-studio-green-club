@@ -2,7 +2,8 @@ import React from 'react';
 import Screen from '../components/Screen';
 import { DownloadIcon } from '../components/icons';
 
-const AdMaterialCard = ({ title, imageUrl }: { title: string, imageUrl: string }) => (
+// FIX: Using React.FC for the component type signature clarifies to TypeScript that this is a React component, which correctly handles special props like 'key' and resolves the type error during mapping.
+const AdMaterialCard: React.FC<{ title: string, imageUrl: string }> = ({ title, imageUrl }) => (
     <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm overflow-hidden group">
         <img src={imageUrl} alt={title} className="w-full h-24 object-cover" />
         <div className="p-3">
@@ -25,7 +26,7 @@ export default function AdMaterialsScreen() {
     return (
         <Screen title="Material Publicitario">
              <div className="grid grid-cols-2 gap-4">
-                {materials.map(m => <AdMaterialCard key={m.title} {...m} />)}
+                {materials.map(m => <AdMaterialCard key={m.title} title={m.title} imageUrl={m.imageUrl} />)}
              </div>
         </Screen>
     );

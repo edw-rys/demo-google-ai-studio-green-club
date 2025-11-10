@@ -30,7 +30,7 @@ export default function ScanScreen() {
         <button className="p-2 rounded-full bg-black/30 backdrop-blur-sm">
           <FlashIcon className="w-6 h-6" />
         </button>
-        <button onClick={() => setCurrentScreen(Screen.Home)} className="p-2 rounded-full bg-black/30 backdrop-blur-sm">
+        <button onClick={() => setCurrentScreen(Screen.HomeScreenv2)} className="p-2 rounded-full bg-black/30 backdrop-blur-sm">
           <XMarkIcon className="w-6 h-6" />
         </button>
       </header>

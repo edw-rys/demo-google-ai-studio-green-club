@@ -10,7 +10,6 @@ interface AppContextType {
   user: User;
   rewards: Reward[];
   theme: 'light' | 'dark';
-  toggleTheme: () => void;
   currentScreen: Screen;
   setCurrentScreen: (screen: Screen, data?: any) => void;
   activeTab: Screen;
