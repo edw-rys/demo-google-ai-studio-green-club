@@ -1,6 +1,7 @@
 import React from 'react';
 import Screen from '../components/Screen';
 import { PhoneIcon, EnvelopeIcon } from '../components/icons';
+import { Screen as ScreenEnum } from '../types';
 
 const ContactButton = ({ icon: Icon, label, value }: { icon: React.ElementType, label: string, value: string }) => (
     <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 flex items-center gap-4">
@@ -14,7 +15,7 @@ const ContactButton = ({ icon: Icon, label, value }: { icon: React.ElementType, 
 
 export default function ContactScreen() {
     return (
-        <Screen title="Contáctanos">
+        <Screen title="Contáctanos" backTo={ScreenEnum.ProfileScreenv2}>
             <div className="space-y-4">
                 <ContactButton icon={PhoneIcon} label="Teléfono" value="+1 (23) 456-7890" />
                 <ContactButton icon={EnvelopeIcon} label="Correo Electrónico" value="soporte@greenclub.com" />

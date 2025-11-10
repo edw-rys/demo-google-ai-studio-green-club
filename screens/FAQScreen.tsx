@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Screen from '../components/Screen';
 import { MOCK_FAQS } from '../constants';
 import { ChevronDownIcon } from '../components/icons';
+import { Screen as ScreenEnum } from '../types';
 
 const AccordionItem: React.FC<{ item: { question: string, answer: string }, isOpen: boolean, onClick: () => void }> = ({ item, isOpen, onClick }) => (
     <div className="border-b border-gray-200">
@@ -25,7 +26,7 @@ export default function FAQScreen() {
     };
 
     return (
-        <Screen title="Preguntas Frecuentes">
+        <Screen title="Preguntas Frecuentes" backTo={ScreenEnum.ProfileScreenv2}>
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
                 {MOCK_FAQS.map((faq, index) => (
                     <AccordionItem 

@@ -14,7 +14,12 @@ const Screen: React.FC<ScreenProps> = ({ title, children, backTo = ScreenEnum.Ho
   
   const handleBack = () => {
     // If we're on a sub-page of a main tab, go back to that tab
-    const mainTabs = [ScreenEnum.Home, ScreenEnum.Rewards, ScreenEnum.Materials, ScreenEnum.Profile];
+    const mainTabs = [
+        ScreenEnum.Home, ScreenEnum.HomeScreenv2,
+        ScreenEnum.Rewards, 
+        ScreenEnum.Materials, ScreenEnum.MaterialsScreenv2,
+        ScreenEnum.Profile, ScreenEnum.ProfileScreenv2
+    ];
     if(mainTabs.includes(backTo)) {
         setCurrentScreen(backTo)
     } else {

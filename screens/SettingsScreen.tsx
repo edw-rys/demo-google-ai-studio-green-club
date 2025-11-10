@@ -1,5 +1,6 @@
 import React from 'react';
 import Screen from '../components/Screen';
+import { Screen as ScreenEnum } from '../types';
 
 const SettingsSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <div>
@@ -26,7 +27,7 @@ const Toggle: React.FC<{ checked: boolean; onChange: () => void }> = ({ checked,
 
 export default function SettingsScreen() {
     return (
-        <Screen title="Configuración">
+        <Screen title="Configuración" backTo={ScreenEnum.ProfileScreenv2}>
             <SettingsSection title="PREFERENCIAS">
                 <SettingsRow label="Idioma" onClick={() => {}}>
                     <span className="font-semibold text-gray-500">Español</span>

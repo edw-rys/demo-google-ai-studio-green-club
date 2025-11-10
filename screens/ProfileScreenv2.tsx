@@ -1,160 +1,101 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppContext } from '../context/AppContext';
-import { Screen as ScreenEnum, Level, Transaction, Redemption } from '../types';
-import { ChevronRightIcon, UserIcon, CogIcon, QuestionMarkCircleIcon, ChatBubbleLeftRightIcon, ArrowLeftOnRectangleIcon, ArrowUpIcon, ArrowDownIcon, ShareIcon } from '../components/icons';
-import { MOCK_TRANSACTIONS, MOCK_REDEMPTIONS } from '../constants';
+import { Screen as ScreenEnum } from '../types';
+import { ChevronRightIcon } from '../components/icons';
 import MiniChart from '../components/MiniChart';
 
-const levelBadges = {
-    [Level.Bronze]: 'bg-orange-200 text-orange-800',
-    [Level.Silver]: 'bg-gray-200 text-gray-800',
-    [Level.Gold]: 'bg-yellow-200 text-yellow-800',
-};
 
-const ProfileHeader = () => {
-    const { user } = useAppContext();
-    return (
-        <header className="p-4 text-center relative flex-shrink-0">
-            <img src={user.avatarUrl} alt="Avatar" className="w-20 h-20 rounded-full border-4 border-white shadow-lg mx-auto" />
-            <h1 className="text-2xl font-bold mt-3 text-[#263238]">{user.firstName} {user.lastName}</h1>
-            <div className="flex justify-center items-center gap-2 mt-2">
-                <span className={`px-3 py-1 text-xs font-bold rounded-full ${levelBadges[user.level]}`}>{user.level}</span>
-                <span className="px-3 py-1 text-xs font-bold rounded-full bg-green-100 text-green-800">{user.points} pts</span>
-            </div>
-        </header>
-    );
-};
-
-const TabButton = ({ label, isActive, onClick }: { label: string, isActive: boolean, onClick: () => void }) => (
-    <button onClick={onClick} className={`flex-1 py-2 text-sm font-bold text-center border-b-2 transition-colors ${isActive ? 'border-[#2E7D32] text-[#2E7D32]' : 'border-transparent text-gray-500'}`}>
-        {label}
-    </button>
-);
-
-const MisPuntosTab = () => {
-    const { user } = useAppContext();
-    return (
-        <div className="p-4 space-y-4">
-            <div className="bg-white rounded-2xl p-4 text-center shadow-sm">
-                <p className="text-sm text-gray-500">Puntos Totales</p>
-                <p className="text-4xl font-bold text-[#2E7D32]">{user.points}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white rounded-2xl p-3 text-center shadow-sm">
-                    <p className="text-xs text-gray-500">Acumulados (mes)</p>
-                    <p className="text-xl font-bold text-green-600">+180</p>
-                </div>
-                <div className="bg-white rounded-2xl p-3 text-center shadow-sm">
-                    <p className="text-xs text-gray-500">Canjeados (mes)</p>
-                    <p className="text-xl font-bold text-red-600">-400</p>
-                </div>
-            </div>
-            <div className="bg-white rounded-2xl p-4 shadow-sm">
-                <p className="font-bold text-sm text-[#263238] mb-2">Actividad (últimos 7 días)</p>
-                <MiniChart />
-            </div>
-        </div>
-    );
-};
-
-const TransaccionesTab = () => {
-    const transactions = MOCK_TRANSACTIONS.slice(0, 6);
-    return (
-        <div className="p-4 bg-white rounded-2xl shadow-sm divide-y divide-gray-100">
-            {transactions.map((t: Transaction) => (
-                <div key={t.id} className="flex items-center justify-between p-3">
-                    <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-full ${t.points > 0 ? 'bg-green-100' : 'bg-red-100'}`}>
-                            {t.points > 0 ? <ArrowUpIcon className="w-4 h-4 text-green-600" /> : <ArrowDownIcon className="w-4 h-4 text-red-600" />}
-                        </div>
-                        <div>
-                            <p className="font-semibold text-sm text-[#263238]">{t.description}</p>
-                            <p className="text-xs text-gray-500">{t.timestamp}</p>
-                        </div>
-                    </div>
-                    <p className={`font-bold text-md ${t.points > 0 ? 'text-green-600' : 'text-red-600'}`}>{t.points > 0 ? `+${t.points}` : t.points}</p>
-                </div>
-            ))}
-        </div>
-    );
-};
-
-const PremiosCanjeadosTab = () => {
-    const { setCurrentScreen } = useAppContext();
-    const statusStyles: { [key: string]: string } = {
-        'Retirado': 'bg-green-100 text-green-800',
-        'Confirmado': 'bg-blue-100 text-blue-800',
-        'Pendiente': 'bg-yellow-100 text-yellow-800',
-    };
-    return (
-        <div className="space-y-4">
-            {MOCK_REDEMPTIONS.map((r: Redemption) => (
-                <div key={r.id} className="bg-white rounded-2xl shadow-sm p-3">
-                    <div className="flex gap-3">
-                        <img src={r.reward.imageUrl} alt={r.reward.name} className="w-16 h-16 rounded-lg object-cover" />
-                        <div className="flex-1">
-                            <div className="flex justify-between items-start">
-                                <h3 className="font-bold text-md text-[#263238]">{r.reward.name}</h3>
-                                <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${statusStyles[r.status]}`}>{r.status}</span>
-                            </div>
-                            <p className="text-xs text-gray-500">{r.timestamp}</p>
-                            <p className="font-semibold text-red-600 text-sm mt-1">-{r.reward.points} pts</p>
-                        </div>
-                    </div>
-                    <div className="flex gap-2 mt-2">
-                        <button onClick={() => setCurrentScreen(ScreenEnum.RedemptionReceipt, r.reward)} className="w-full text-xs bg-gray-100 font-semibold py-1.5 rounded-md">Ver comprobante</button>
-                        <button className="w-full text-xs bg-gray-100 font-semibold py-1.5 rounded-md flex items-center justify-center gap-1"><ShareIcon className="w-3 h-3" /> Compartir</button>
-                    </div>
-                </div>
-            ))}
-        </div>
-    );
-};
-
-
-const ProfileMenuItem = ({ icon: Icon, label, screen }: { icon: React.ElementType, label: string, screen: ScreenEnum }) => {
+const ProfileMenuItem = ({ label, screen }: { label: string, screen: ScreenEnum }) => {
     const { setCurrentScreen } = useAppContext();
     return (
-        <button onClick={() => setCurrentScreen(screen)} className="w-full flex items-center justify-between p-4">
-            <div className="flex items-center gap-4">
-                <Icon className="w-6 h-6 text-[#2E7D32]" />
-                <span className="font-semibold text-[#263238]">{label}</span>
-            </div>
+        <button onClick={() => setCurrentScreen(screen)} className="w-full flex items-center justify-between py-4 px-4 border-t border-gray-100">
+            <span className="font-semibold text-[#263238] text-base">{label}</span>
             <ChevronRightIcon className="w-5 h-5 text-gray-400" />
         </button>
     )
 }
 
 export default function ProfileScreenv2() {
-    const [activeTab, setActiveTab] = useState('Mis Puntos');
-    const { logout } = useAppContext();
+    const { user, logout, setCurrentScreen } = useAppContext();
 
     return (
-        <div className="flex-1 flex flex-col h-full bg-[#ECEFF1]">
-            <ProfileHeader />
-            <div className="flex bg-white border-b border-gray-200 flex-shrink-0">
-                <TabButton label="Mis Puntos" isActive={activeTab === 'Mis Puntos'} onClick={() => setActiveTab('Mis Puntos')} />
-                <TabButton label="Transacciones" isActive={activeTab === 'Transacciones'} onClick={() => setActiveTab('Transacciones')} />
-                <TabButton label="Premios canjeados" isActive={activeTab === 'Premios canjeados'} onClick={() => setActiveTab('Premios canjeados')} />
-            </div>
-            <main className="flex-1 overflow-y-auto p-4">
-                {activeTab === 'Mis Puntos' && <MisPuntosTab />}
-                {activeTab === 'Transacciones' && <TransaccionesTab />}
-                {activeTab === 'Premios canjeados' && <PremiosCanjeadosTab />}
+        <div className="flex-1 flex flex-col h-full bg-[#F7F7F7] overflow-y-auto">
+            {/* Header and Content Wrapper */}
+            <div className="flex-shrink-0">
+                {/* Header Area */}
+                <div className="bg-[#6f9f48] pt-12 pb-20 relative text-center text-white" style={{ background: 'linear-gradient(180deg, #6f9f48 0%, #538e36 100%)' }}>
+                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/leafy-green.png')] opacity-10"></div>
+                    <div className="relative">
+                        <div className="relative inline-block">
+                            <img src="https://i.pravatar.cc/150?u=david-alava" alt="Avatar" className="w-24 h-24 rounded-full border-4 border-black shadow-lg" />
+                            <div className="absolute -bottom-2 right-0 bg-white rounded-full p-1 shadow-md">
+                                <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-Platino@2x.png" alt="Nivel" className="w-8 h-8"/>
+                            </div>
+                        </div>
+                        <h1 className="text-3xl font-bold mt-4 tracking-wide">{user.firstName} {user.lastName}</h1>
+                    </div>
+                </div>
 
-                <div className="bg-white rounded-2xl shadow-sm mt-6 divide-y divide-gray-100">
-                    <ProfileMenuItem icon={UserIcon} label="Editar perfil" screen={ScreenEnum.EditProfile} />
-                    <ProfileMenuItem icon={CogIcon} label="Configuración" screen={ScreenEnum.Settings} />
-                    <ProfileMenuItem icon={ChatBubbleLeftRightIcon} label="Contáctanos" screen={ScreenEnum.Contact} />
-                    <ProfileMenuItem icon={QuestionMarkCircleIcon} label="Ayuda / FAQ" screen={ScreenEnum.FAQ} />
+                 {/* Main Content Area */}
+                <div className="relative z-10 -mt-12">
+                    {/* Status Card */}
+                    <div className="bg-white rounded-2xl shadow-lg p-4 w-[85%] mx-auto flex justify-around text-center">
+                        <div className="w-1/2">
+                            <p className="text-sm font-bold text-gray-500">Tu nivel</p>
+                            <p className="text-lg font-bold text-[#263238]">{user.level}</p>
+                        </div>
+                        <div className="w-px bg-gray-200 my-2"></div>
+                        <div className="w-1/2">
+                            <p className="text-sm font-bold text-gray-500">Tus Green Points</p>
+                            <p className="text-lg font-bold text-[#2E7D32]">{user.points}</p>
+                        </div>
+                    </div>
+                    
+                    {/* Rest of the content */}
+                    <div className="px-4 pt-6 pb-8">
+                        <div className="px-2">
+                             <h3 className="text-sm font-bold text-gray-500 mb-2">RESUMEN DE PUNTOS</h3>
+                             <div className="grid grid-cols-2 gap-3 text-center">
+                                <div className="bg-white p-3 rounded-xl shadow-sm">
+                                    <p className="text-xs text-gray-500">Puntos Totales</p>
+                                    <p className="text-xl font-bold text-green-600">{user.points}</p>
+                                </div>
+                                <div className="bg-white p-3 rounded-xl shadow-sm">
+                                    <p className="text-xs text-gray-500">Acumulados (mes)</p>
+                                    <p className="text-xl font-bold text-green-600">+180</p>
+                                </div>
+                                <div className="bg-white p-3 rounded-xl shadow-sm">
+                                    <p className="text-xs text-gray-500">Canjeados (mes)</p>
+                                    <p className="text-xl font-bold text-red-600">-400</p>
+                                </div>
+                            </div>
+                                 <div className="bg-white p-3 rounded-xl shadow-sm flex flex-col justify-between">
+                                    <p className="text-xs text-gray-500">Actividad (últimos 7 días)</p>
+                                    <div className="h-full flex items-end">
+                                        <MiniChart />
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div className="bg-white rounded-2xl shadow-sm mt-6 overflow-hidden">
+                            <button onClick={() => setCurrentScreen(ScreenEnum.Settings)} className="w-full flex items-center justify-between py-4 px-4">
+                                <span className="font-semibold text-[#263238] text-base">Configuración</span>
+                                <ChevronRightIcon className="w-5 h-5 text-gray-400" />
+                            </button>
+                            <ProfileMenuItem label="Contáctanos" screen={ScreenEnum.Contact} />
+                            <ProfileMenuItem label="Ayuda" screen={ScreenEnum.HowItWorks} />
+                            <ProfileMenuItem label="Preguntas frecuentes" screen={ScreenEnum.FAQ} />
+                            <ProfileMenuItem label="Transacciones" screen={ScreenEnum.PointsHistory} />
+                            <ProfileMenuItem label="Premios canjeados" screen={ScreenEnum.MyRedemptions} />
+                        </div>
+                        <div className="mt-8 text-center">
+                            <button onClick={logout} className="font-bold text-red-600 py-3 px-6 rounded-xl hover:bg-red-500/10 transition-colors">
+                                Cerrar sesión
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div className="mt-6 text-center">
-                    <button onClick={logout} className="flex items-center justify-center gap-2 mx-auto text-red-500 font-semibold px-4 py-2 rounded-lg hover:bg-red-500/10 transition-colors">
-                        <ArrowLeftOnRectangleIcon className="w-5 h-5"/>
-                        Cerrar sesión
-                    </button>
-                </div>
-            </main>
+            </div>
         </div>
     );
 }

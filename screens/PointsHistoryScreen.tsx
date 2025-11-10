@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Screen from '../components/Screen';
 import { MOCK_TRANSACTIONS } from '../constants';
 import { ArrowDownIcon, ArrowUpIcon } from '../components/icons';
-import { Transaction } from '../types';
+import { Transaction, Screen as ScreenEnum } from '../types';
 
 const TransactionItem: React.FC<{ transaction: Transaction }> = ({ transaction: t }) => (
     <div className="flex items-center justify-between p-3">
@@ -35,7 +35,7 @@ export default function PointsHistoryScreen() {
     });
 
     return (
-        <Screen title="Historial de Puntos">
+        <Screen title="Historial de Puntos" backTo={ScreenEnum.ProfileScreenv2}>
             <div className="flex gap-2 mb-4">
                 <button onClick={() => setFilter('todos')} className={`px-4 py-2 rounded-full font-semibold text-sm ${filter === 'todos' ? 'bg-[#2E7D32] text-white' : 'bg-white'}`}>Todos</button>
                 <button onClick={() => setFilter('acumulacion')} className={`px-4 py-2 rounded-full font-semibold text-sm ${filter === 'acumulacion' ? 'bg-[#2E7D32] text-white' : 'bg-white'}`}>Acumulados</button>

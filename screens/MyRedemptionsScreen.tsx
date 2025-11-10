@@ -37,7 +37,7 @@ const RedemptionCard: React.FC<{ redemption: Redemption }> = ({ redemption }) =>
 
 export default function MyRedemptionsScreen() {
     return (
-        <Screen title="Mis Canjes">
+        <Screen title="Mis Canjes" backTo={ScreenEnum.ProfileScreenv2}>
             <div className="space-y-4">
                 {MOCK_REDEMPTIONS.map(r => (
                     <RedemptionCard key={r.id} redemption={r} />

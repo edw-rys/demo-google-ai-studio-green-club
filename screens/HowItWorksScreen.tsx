@@ -1,6 +1,7 @@
 import React from 'react';
 import Screen from '../components/Screen';
 import { QrCodeIcon, StarIcon, GiftIcon, ArrowTrendingUpIcon } from '../components/icons';
+import { Screen as ScreenEnum } from '../types';
 
 // FIX: Changed `children` prop to `description` to resolve confusing type error.
 const InfoBlock = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: React.ReactNode }) => (
@@ -17,7 +18,7 @@ const InfoBlock = ({ icon: Icon, title, description }: { icon: React.ElementType
 
 export default function HowItWorksScreen() {
     return (
-        <Screen title="¿Cómo funciona?">
+        <Screen title="¿Cómo funciona?" backTo={ScreenEnum.ProfileScreenv2}>
             <div className="space-y-4">
                 {/* FIX: Pass text content via the `description` prop. */}
                 <InfoBlock icon={QrCodeIcon} title="Acumula Green Points" description="Gana 1 Green Point por cada centavo gastado según tu nivel. ¡Solo escanea tus facturas y listo!" />
