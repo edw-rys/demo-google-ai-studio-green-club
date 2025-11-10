@@ -37,7 +37,6 @@ const HowToGetPointsModal = ({ onClose }: { onClose: () => void }) => (
 const PromoCarousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const carouselRef = useRef<HTMLDivElement>(null);
-    // FIX: Replaced NodeJS.Timeout with 'number' for browser compatibility.
     const scrollTimeoutRef = useRef<number | null>(null);
 
     const handleScroll = () => {
@@ -134,7 +133,7 @@ export default function HomeScreenv2() {
     const progress = Math.min(points / goal, 1);
 
     const size = 220;
-    const strokeWidth = 16;
+    const strokeWidth = 22; // Wider arc
     const center = size / 2;
     const radius = center - strokeWidth / 2;
     const circumference = 2 * Math.PI * radius;
@@ -165,15 +164,15 @@ export default function HomeScreenv2() {
                 </section>
 
                 <section className="bg-[#0B521D] rounded-3xl p-4 pt-8 mt-4 relative flex flex-col items-center text-white shadow-lg">
-                    <div className="absolute top-4 text-center">
+                    <div className="absolute top-2 text-center">
                         <span className="text-sm font-semibold text-white/80">500 greenpoints</span>
                     </div>
 
                     <div className="relative" style={{ width: size, height: size }}>
                          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="absolute inset-0">
-                            {/* Base Arc */}
+                            {/* Base Arc (Dark Green) */}
                             <circle
-                                stroke="white"
+                                stroke="#20713A"
                                 fill="transparent"
                                 strokeWidth={strokeWidth}
                                 strokeDasharray={`${arcLength} ${circumference}`}
@@ -183,9 +182,9 @@ export default function HomeScreenv2() {
                                 cy={center}
                                 style={{ transform: `rotate(135deg)`, transformOrigin: 'center' }}
                             />
-                            {/* Progress Arc */}
+                            {/* Progress Arc (White) */}
                             <circle
-                                stroke="#20713A"
+                                stroke="white"
                                 fill="transparent"
                                 strokeWidth={strokeWidth}
                                 strokeDasharray={`${arcLength} ${circumference}`}
@@ -203,13 +202,17 @@ export default function HomeScreenv2() {
                         </svg>
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-Platino@2x.png" alt="Hoja de Plata" className="w-16 h-16"/>
-                            <span className="font-bold text-lg mt-1">Hoja de plata</span>
+                            <div className="text-center leading-tight mt-1">
+                                <span className="text-lg">Hoja de</span>
+                                <span className="font-bold text-lg">plata</span>
+                            </div>
                         </div>
-                        <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-de-bronce@2x.png" alt="Bronce" className="w-14 h-14 absolute bottom-[10px] left-[-10px]"/>
+                        {/* Larger coins positioned at the tips of the arc */}
+                        <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-de-bronce@2x.png" alt="Bronce" className="w-16 h-16 absolute bottom-[8px] left-[8px]"/>
                         <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-Platino@2x.png" alt="Plata" className="w-16 h-16 absolute -top-3 left-1/2 -translate-x-1/2"/>
-                        <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-Dorada@2x.png" alt="Oro" className="w-14 h-14 absolute bottom-[10px] right-[-10px]"/>
+                        <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-Dorada@2x.png" alt="Oro" className="w-16 h-16 absolute bottom-[8px] right-[8px]"/>
                     </div>
-                     <div className="w-full flex justify-between px-2 mt-2">
+                     <div className="w-full flex justify-between px-6 -mt-2">
                         <span className="text-xs font-semibold text-white/80">0 greenpoints</span>
                         <span className="text-xs font-semibold text-white/80">1000 greenpoints</span>
                     </div>
