@@ -8,7 +8,7 @@ interface PromoCarouselProps {
 
 const PromoCarousel: React.FC<PromoCarouselProps> = ({ promos, isHero }) => {
   const containerClass = isHero ? "px-4 mt-4" : "mt-6";
-  const titleClass = isHero ? "hidden" : "text-lg font-bold text-[#263238] dark:text-neutral-200 px-4 mb-3";
+  const titleClass = isHero ? "hidden" : "text-lg font-bold text-[#263238] px-4 mb-3";
 
   return (
     <div className={containerClass}>

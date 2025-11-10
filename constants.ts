@@ -21,12 +21,12 @@ export const MOCK_USER: User = {
 };
 
 export const REWARDS: Reward[] = [
-  { id: 1, name: 'Airfryer', points: 400, imageUrl: 'https://picsum.photos/seed/airfryer/400/400', category: 'Hogar', description: 'Freidora de aire de última generación para cocinar de forma más saludable. Capacidad de 5 litros.' },
-  { id: 2, name: 'Parlante JBL', points: 300, imageUrl: 'https://picsum.photos/seed/jbl/400/400', category: 'Tecnología', description: 'Altavoz Bluetooth portátil con sonido potente y batería de larga duración. Resistente al agua.' },
-  { id: 3, name: 'Smartwatch', points: 500, imageUrl: 'https://picsum.photos/seed/watch/400/400', category: 'Tecnología', description: 'Reloj inteligente con monitor de frecuencia cardíaca, GPS y notificaciones de tu smartphone.' },
-  { id: 4, name: 'Termo metalizado', points: 150, imageUrl: 'https://picsum.photos/seed/thermos/400/400', category: 'Accesorios', description: 'Termo de acero inoxidable que mantiene tus bebidas frías o calientes por horas.' },
-  { id: 5, name: 'Mouse inalámbrico', points: 200, imageUrl: 'https://picsum.photos/seed/mouse/400/400', category: 'Tecnología', description: 'Mouse ergonómico inalámbrico con conexión Bluetooth y USB. Ideal para trabajar cómodamente.' },
-  { id: 6, name: 'Tablet', points: 800, imageUrl: 'https://picsum.photos/seed/tablet/400/400', category: 'Tecnología', description: 'Tablet de 10 pulgadas con pantalla Full HD, ideal para entretenimiento y productividad.' },
+  { id: 1, name: 'Airfryer', points: 400, imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/airfryer.png', category: 'Hogar', description: 'Freidora de aire de última generación para cocinar de forma más saludable. Capacidad de 5 litros.' },
+  { id: 2, name: 'Parlante JBL', points: 300, imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/parlante.png', category: 'Tecnología', description: 'Altavoz Bluetooth portátil con sonido potente y batería de larga duración. Resistente al agua.' },
+  { id: 3, name: 'Smart Watch', points: 500, imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/smartwatch.png', category: 'Tecnología', description: 'Reloj inteligente con monitor de frecuencia cardíaca, GPS y notificaciones de tu smartphone.' },
+  { id: 4, name: 'Termo Metalizado', points: 80, imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/termo.png', category: 'Accesorios', description: 'Termo de acero inoxidable que mantiene tus bebidas frías o calientes por horas.' },
+  { id: 5, name: 'Mouse Inalambrico', points: 200, imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/mouse.png', category: 'Tecnología', description: 'Mouse ergonómico inalámbrico con conexión Bluetooth y USB. Ideal para trabajar cómodamente.' },
+  { id: 6, name: 'Tablet', points: 800, imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/tablet.png', category: 'Tecnología', description: 'Tablet de 10 pulgadas con pantalla Full HD, ideal para entretenimiento y productividad.' },
 ];
 
 export const MOCK_TRANSACTIONS: Transaction[] = [

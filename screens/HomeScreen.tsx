@@ -14,12 +14,12 @@ import { SunIcon, MoonIcon } from '../components/icons';
 
 const SkeletonLoader = () => (
     <div className="p-4 space-y-4">
-        <div className="bg-gray-200 dark:bg-neutral-800 h-8 w-3/4 rounded-md animate-pulse"></div>
-        <div className="bg-gray-200 dark:bg-neutral-800 h-20 w-full rounded-xl animate-pulse"></div>
-        <div className="bg-gray-200 dark:bg-neutral-800 h-16 w-full rounded-xl animate-pulse"></div>
+        <div className="bg-gray-200 h-8 w-3/4 rounded-md animate-pulse"></div>
+        <div className="bg-gray-200 h-20 w-full rounded-xl animate-pulse"></div>
+        <div className="bg-gray-200 h-16 w-full rounded-xl animate-pulse"></div>
         <div className="flex space-x-4">
-            <div className="bg-gray-200 dark:bg-neutral-800 h-24 w-1/2 rounded-xl animate-pulse"></div>
-            <div className="bg-gray-200 dark:bg-neutral-800 h-24 w-1/2 rounded-xl animate-pulse"></div>
+            <div className="bg-gray-200 h-24 w-1/2 rounded-xl animate-pulse"></div>
+            <div className="bg-gray-200 h-24 w-1/2 rounded-xl animate-pulse"></div>
         </div>
     </div>
 );
@@ -34,13 +34,13 @@ const VariantSwitcher: React.FC<{
   variant: HomeVariant;
   setVariant: (variant: HomeVariant) => void;
 }> = ({ variant, setVariant }) => (
-  <div className="flex justify-center p-2 bg-neutral-200 dark:bg-neutral-800 space-x-1 rounded-full mx-4 mb-4 text-sm">
+  <div className="flex justify-center p-2 bg-neutral-200 space-x-1 rounded-full mx-4 mb-4 text-sm">
     {(['Scanner-first', 'Goal-first', 'Promos-first'] as HomeVariant[]).map((v) => (
       <button
         key={v}
         onClick={() => setVariant(v)}
         className={`px-3 py-1 rounded-full font-semibold transition-colors duration-200 ${
-          variant === v ? 'bg-white dark:bg-black text-[#2E7D32]' : 'text-neutral-600 dark:text-neutral-400'
+          variant === v ? 'bg-white text-[#2E7D32]' : 'text-neutral-600'
         }`}
       >
         {v.split('-')[0]}
@@ -60,12 +60,12 @@ export default function HomeScreen() {
   // Empty state for new user
   if (user.points === 0) {
     return (
-        <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-gray-50 dark:bg-neutral-900">
+        <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-gray-50">
             <div className="text-6xl mb-4">🌱</div>
-            <h2 className="text-2xl font-bold text-[#263238] dark:text-neutral-200">
+            <h2 className="text-2xl font-bold text-[#263238]">
               Aún no tienes Green Points
             </h2>
-            <p className="text-neutral-500 dark:text-neutral-400 mt-2 mb-6">
+            <p className="text-neutral-500 mt-2 mb-6">
               ¡Empieza a acumular puntos con tu primera compra!
             </p>
             <button 
@@ -139,7 +139,7 @@ export default function HomeScreen() {
     <div className='flex-1 flex flex-col'>
       {/* FIX: Removed theme toggle button as the functionality is not implemented.
       <div className="absolute top-2 right-2 z-50">
-          <button onClick={toggleTheme} className="p-2 rounded-full bg-white/50 dark:bg-black/50 backdrop-blur-sm">
+          <button onClick={toggleTheme} className="p-2 rounded-full bg-white/50">
               {theme === 'light' ? <MoonIcon className="w-5 h-5" /> : <SunIcon className="w-5 h-5" />}
           </button>
       </div>

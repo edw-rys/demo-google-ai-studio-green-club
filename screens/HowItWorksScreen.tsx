@@ -4,11 +4,11 @@ import { QrCodeIcon, StarIcon, GiftIcon, ArrowTrendingUpIcon } from '../componen
 
 // FIX: Changed `children` prop to `description` to resolve confusing type error.
 const InfoBlock = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: React.ReactNode }) => (
-    <div className="bg-white dark:bg-neutral-800 rounded-2xl p-5 flex items-start gap-4 shadow-sm">
+    <div className="bg-white rounded-2xl p-5 flex items-start gap-4 shadow-sm">
         <Icon className="w-8 h-8 text-[#2E7D32] flex-shrink-0 mt-1" />
         <div>
-            <h3 className="font-bold text-lg text-[#263238] dark:text-neutral-200">{title}</h3>
-            <p className="text-neutral-600 dark:text-neutral-400 text-sm mt-1">
+            <h3 className="font-bold text-lg text-[#263238]">{title}</h3>
+            <p className="text-neutral-600 text-sm mt-1">
                 {description}
             </p>
         </div>

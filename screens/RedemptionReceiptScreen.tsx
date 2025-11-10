@@ -27,18 +27,18 @@ export default function RedemptionReceiptScreen() {
 
     return (
         <Screen title="Comprobante de Canje">
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-sm p-6 text-center">
+            <div className="bg-white rounded-2xl shadow-sm p-6 text-center">
                 <span className="text-green-600 font-semibold">Canje confirmado</span>
-                <h2 className="text-2xl font-bold mt-2 text-[#263238] dark:text-neutral-200">{selectedReward.name}</h2>
+                <h2 className="text-2xl font-bold mt-2 text-[#263238]">{selectedReward.name}</h2>
                 <p className="font-bold text-lg text-red-500 mt-1">-{selectedReward.points} Green Points</p>
 
                 <div className="w-48 h-48 mx-auto my-6 p-3 bg-white rounded-lg border">
                     <MockQRCode />
                 </div>
                 
-                <div className="text-left space-y-2 text-sm text-neutral-600 dark:text-neutral-400 border-t border-dashed pt-4">
-                    <p className="flex justify-between"><span>Fecha:</span> <span className="font-semibold text-[#263238] dark:text-neutral-200">Hoy, 10:30</span></p>
-                    <p className="flex justify-between"><span>Código de retiro:</span> <span className="font-semibold text-[#263238] dark:text-neutral-200">GRC-67890</span></p>
+                <div className="text-left space-y-2 text-sm text-neutral-600 border-t border-dashed pt-4">
+                    <p className="flex justify-between"><span>Fecha:</span> <span className="font-semibold text-[#263238]">Hoy, 10:30</span></p>
+                    <p className="flex justify-between"><span>Código de retiro:</span> <span className="font-semibold text-[#263238]">GRC-67890</span></p>
                 </div>
 
                  <p className="text-xs text-neutral-500 mt-4">
@@ -46,10 +46,10 @@ export default function RedemptionReceiptScreen() {
                  </p>
             </div>
             <div className="mt-6 flex gap-3">
-                <button className="w-full flex items-center justify-center gap-2 bg-gray-200 dark:bg-neutral-700 text-[#263238] dark:text-neutral-200 font-semibold py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-neutral-600 transition-colors">
+                <button className="w-full flex items-center justify-center gap-2 bg-gray-200 text-[#263238] font-semibold py-3 rounded-lg hover:bg-gray-300 transition-colors">
                     <DownloadIcon className="w-5 h-5" /> Descargar
                 </button>
-                <button className="w-full flex items-center justify-center gap-2 bg-gray-200 dark:bg-neutral-700 text-[#263238] dark:text-neutral-200 font-semibold py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-neutral-600 transition-colors">
+                <button className="w-full flex items-center justify-center gap-2 bg-gray-200 text-[#263238] font-semibold py-3 rounded-lg hover:bg-gray-300 transition-colors">
                     <ShareIcon className="w-5 h-5" /> Compartir
                 </button>
             </div>

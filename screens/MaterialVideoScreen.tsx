@@ -30,7 +30,7 @@ export default function MaterialVideoScreen() {
 
     return (
         <Screen title="Video Recomendado" backTo={ScreenEnum.MaterialsScreenv2}>
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-sm overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
                 <div className="aspect-w-16 aspect-h-9 bg-black">
                     {/* Mock YouTube Player */}
                     <div className="w-full h-full flex items-center justify-center text-white">
@@ -38,8 +38,8 @@ export default function MaterialVideoScreen() {
                     </div>
                 </div>
                 <div className="p-4">
-                     <h2 className="text-lg font-bold text-[#263238] dark:text-neutral-200">{selectedMaterial.title}</h2>
-                     <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{selectedMaterial.description}</p>
+                     <h2 className="text-lg font-bold text-[#263238]">{selectedMaterial.title}</h2>
+                     <p className="text-sm text-neutral-500 mt-1">{selectedMaterial.description}</p>
                 </div>
             </div>
             

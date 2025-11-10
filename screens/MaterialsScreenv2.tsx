@@ -1,79 +1,68 @@
-import React, { useState } from 'react';
-import Screen from '../components/Screen';
+import React from 'react';
 import { useAppContext } from '../context/AppContext';
-import { MOCK_MATERIALS } from '../constants';
-import { Material, Screen as ScreenEnum, Level } from '../types';
-import { LockIcon } from '../components/icons';
+import { Material, Screen as ScreenEnum } from '../types';
 
-const MaterialCard: React.FC<{ material: Material, onSelect: () => void, isLocked: boolean }> = ({ material, onSelect, isLocked }) => (
-    <button
-        onClick={onSelect}
-        disabled={isLocked}
-        className="bg-white dark:bg-neutral-800 rounded-2xl p-3 text-left shadow-sm w-full transition-transform transform active:scale-95 disabled:opacity-50 relative"
-    >
-        <img src={material.thumbnailUrl} alt={material.title} className="w-full h-24 object-cover rounded-lg mb-2"/>
-        <span className="text-xs font-bold text-neutral-500 dark:text-neutral-400">{material.type}</span>
-        <h3 className="font-bold text-md text-[#263238] dark:text-neutral-200 mt-1 truncate">{material.title}</h3>
-        {material.levelRequired && (
-            <div className={`absolute top-2 right-2 flex items-center text-xs px-2 py-0.5 rounded-full font-semibold ${
-                material.levelRequired === Level.Silver ? 'bg-gray-200 text-gray-700' : 'bg-yellow-200 text-yellow-800'
-            }`}>
-                {isLocked && <LockIcon className="w-3 h-3 mr-1" />}
-                {material.levelRequired.split(' ')[2]}
-            </div>
-        )}
+const materialCategories = [
+    {
+        id: 'mat-cat-1',
+        title: 'Capacitaciones de nuestros productos',
+        imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/mult-1.jpg',
+        description: 'Accede a videos y guías para conocer nuestros productos a fondo y mejorar tus ventas.',
+    },
+    {
+        id: 'mat-cat-2',
+        title: 'Ayuda ventas de productos',
+        imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/mult-2.jpg',
+        description: 'Encuentra presentaciones, folletos y fichas técnicas listos para compartir con tus clientes.',
+    },
+    {
+        id: 'mat-cat-3',
+        title: 'Materiales para redes sociales',
+        imageUrl: 'https://greenlife.com.ec/wp-content/uploads/2020/08/mult-3.png',
+        description: 'Descarga imágenes y videos en alta calidad, optimizados para Instagram, Facebook y más.',
+    }
+];
+
+const MaterialCategoryCard: React.FC<{ category: typeof materialCategories[0], onClick: () => void }> = ({ category, onClick }) => (
+    <button onClick={onClick} className="w-full h-48 relative rounded-2xl overflow-hidden shadow-lg transform active:scale-95 transition-transform duration-200">
+        <img src={category.imageUrl} alt={category.title} className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+        <h3 className="absolute bottom-4 left-4 text-white text-xl font-bold">{category.title}</h3>
     </button>
 );
 
-
 export default function MaterialsScreenv2() {
-    const { user, setCurrentScreen } = useAppContext();
-    const [filter, setFilter] = useState<'Todos' | 'Artículo' | 'Imagen' | 'Video'>('Todos');
-    
-    const filters: ('Todos' | 'Artículo' | 'Imagen' | 'Video')[] = ['Todos', 'Artículo', 'Imagen', 'Video'];
+    const { setCurrentScreen } = useAppContext();
 
-    const handleSelectMaterial = (material: Material) => {
-        if (material.type === 'Video') {
-            setCurrentScreen(ScreenEnum.MaterialVideo, material);
-        } else {
-            setCurrentScreen(ScreenEnum.MaterialDetail, material);
-        }
-    };
-    
-    const filteredMaterials = MOCK_MATERIALS.filter(m => filter === 'Todos' || m.type === filter);
-
-    const userLevelValue = user.level === Level.Gold ? 2 : user.level === Level.Silver ? 1 : 0;
-    const isLocked = (material: Material) => {
-        if (!material.levelRequired) return false;
-        const requiredLevelValue = material.levelRequired === Level.Gold ? 2 : 1;
-        return userLevelValue < requiredLevelValue;
+    const handleSelectCategory = (category: typeof materialCategories[0]) => {
+        const materialPayload: Material = {
+            id: category.id,
+            title: category.title,
+            description: category.description,
+            thumbnailUrl: category.imageUrl,
+            type: 'Imagen',
+            content: {
+                text: [],
+                images: [category.imageUrl]
+            }
+        };
+        setCurrentScreen(ScreenEnum.MaterialDetail, materialPayload);
     };
 
     return (
-        <Screen title="Materiales" backTo={ScreenEnum.HomeScreenv2}>
-            <div className="flex gap-2 mb-4 overflow-x-auto no-scrollbar py-1">
-                {filters.map(f => (
-                    <button
-                        key={f}
-                        onClick={() => setFilter(f)}
-                        className={`px-4 py-2 rounded-full font-semibold text-sm whitespace-nowrap ${
-                            filter === f ? 'bg-[#2E7D32] text-white' : 'bg-white dark:bg-neutral-800 text-[#263238] dark:text-neutral-200'
-                        }`}
-                    >
-                        {f}
-                    </button>
-                ))}
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-                {filteredMaterials.map(material => (
-                    <MaterialCard 
-                        key={material.id} 
-                        material={material} 
-                        onSelect={() => handleSelectMaterial(material)} 
-                        isLocked={isLocked(material)}
+        <div className="flex-1 flex flex-col h-full bg-[#ECEFF1]">
+             <header className="p-4 flex-shrink-0">
+                <h1 className="text-3xl font-bold text-[#263238]">Materiales</h1>
+            </header>
+            <main className="flex-1 overflow-y-auto px-4 space-y-5 pb-4">
+                {materialCategories.map(category => (
+                    <MaterialCategoryCard 
+                        key={category.id} 
+                        category={category}
+                        onClick={() => handleSelectCategory(category)}
                     />
                 ))}
-            </div>
-        </Screen>
+            </main>
+        </div>
     );
 }

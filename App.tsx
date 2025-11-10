@@ -149,7 +149,7 @@ export default function App() {
       }
     };
 
-    const isTabView = [Screen.HomeScreenv2, Screen.Rewards, Screen.MaterialsScreenv2, Screen.ProfileScreenv2].includes(currentScreen);
+    const isTabView = [Screen.Home, Screen.HomeScreenv2, Screen.Rewards, Screen.MaterialsScreenv2, Screen.ProfileScreenv2].includes(currentScreen);
     
     return (
         <>

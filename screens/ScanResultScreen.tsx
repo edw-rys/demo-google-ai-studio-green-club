@@ -48,25 +48,25 @@ const ScanResultScreen: React.FC<ScanResultScreenProps> = ({ status }) => {
     const { icon: Icon } = data;
 
     return (
-        <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-gray-50 dark:bg-neutral-900">
+        <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-gray-50">
             <Icon className={`w-24 h-24 ${data.color}`} />
 
-            <h1 className="text-3xl font-bold mt-6 text-[#263238] dark:text-neutral-200">{data.title}</h1>
+            <h1 className="text-3xl font-bold mt-6 text-[#263238]">{data.title}</h1>
             
             {status === 'success' && scanResult && (
-                <p className="text-lg text-neutral-600 dark:text-neutral-300 mt-2">
+                <p className="text-lg text-neutral-600 mt-2">
                     Sumaste <span className="font-bold text-[#2E7D32]">{scanResult.points} Green Points</span>
                 </p>
             )}
 
             {data.description ? (
-                 <p className="text-neutral-500 dark:text-neutral-400 mt-2 max-w-sm mx-auto">
+                 <p className="text-neutral-500 mt-2 max-w-sm mx-auto">
                     {data.description}
                  </p>
             ): null}
 
             {status === 'success' && scanResult && (
-                 <p className="text-sm text-neutral-400 dark:text-neutral-500 mt-4">
+                 <p className="text-sm text-neutral-400 mt-4">
                     Código: {scanResult.code} · {scanResult.timestamp}
                  </p>
             )}
@@ -79,7 +79,7 @@ const ScanResultScreen: React.FC<ScanResultScreenProps> = ({ status }) => {
                  </button>
                  <button 
                     onClick={() => setCurrentScreen(data.secondaryAction)}
-                    className="w-full text-[#2E7D32] dark:text-green-400 font-semibold py-3 px-5 rounded-lg text-base hover:bg-green-500/10 transition-colors">
+                    className="w-full text-[#2E7D32] font-semibold py-3 px-5 rounded-lg text-base hover:bg-green-500/10 transition-colors">
                     {data.secondaryButton}
                  </button>
             </div>

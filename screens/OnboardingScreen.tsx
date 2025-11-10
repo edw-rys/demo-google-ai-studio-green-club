@@ -27,7 +27,7 @@ const ProgressDots: React.FC<{ count: number; current: number }> = ({ count, cur
       <div
         key={index}
         className={`w-2.5 h-2.5 rounded-full transition-colors ${
-          index === current ? 'bg-[#2E7D32]' : 'bg-gray-300 dark:bg-neutral-600'
+          index === current ? 'bg-[#2E7D32]' : 'bg-gray-300'
         }`}
       />
     ))}
@@ -54,18 +54,18 @@ export default function OnboardingScreen() {
   const isLastStep = step === onboardingSteps.length - 1;
 
   return (
-    <div className="flex flex-col h-full bg-gray-50 dark:bg-neutral-900 p-8 text-center">
+    <div className="flex flex-col h-full bg-gray-50 p-8 text-center">
       <div className="absolute top-6 right-6">
-         <button onClick={handleSkip} className="font-semibold text-gray-500 dark:text-neutral-400">
+         <button onClick={handleSkip} className="font-semibold text-gray-500">
             Omitir
          </button>
       </div>
       <div className="flex-1 flex flex-col justify-center items-center">
-        <div className="w-24 h-24 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-8">
+        <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-8">
             <Icon className="w-12 h-12 text-[#2E7D32]" />
         </div>
-        <h1 className="text-3xl font-bold text-[#263238] dark:text-neutral-200">{title}</h1>
-        <p className="text-neutral-600 dark:text-neutral-400 mt-4 max-w-sm mx-auto">{text}</p>
+        <h1 className="text-3xl font-bold text-[#263238]">{title}</h1>
+        <p className="text-neutral-600 mt-4 max-w-sm mx-auto">{text}</p>
       </div>
       <div className="mt-auto">
         <ProgressDots count={onboardingSteps.length} current={step} />

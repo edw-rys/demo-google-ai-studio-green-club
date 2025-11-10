@@ -9,11 +9,11 @@ export const ScanButton: React.FC = () => {
         <div className="flex flex-col items-center">
             <button 
                 onClick={() => setCurrentScreen(Screen.Scan)}
-                className="w-full bg-[#2E7D32] text-white font-bold py-4 px-5 rounded-2xl text-lg hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg transform active:scale-95">
+                className="w-full bg-[#2E7D32] text-white font-bold py-4 px-5 rounded-2xl text-lg hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg transform active:scale-95">
             <QrCodeIcon className="w-7 h-7" />
             Escanear factura (QR / Barras)
             </button>
-            <p className="text-xs text-gray-500 dark:text-neutral-400 mt-2">Apunta al código y listo</p>
+            <p className="text-xs text-gray-500 mt-2">Apunta al código y listo</p>
         </div>
     );
 };

@@ -7,15 +7,15 @@ import { Transaction } from '../types';
 const TransactionItem: React.FC<{ transaction: Transaction }> = ({ transaction: t }) => (
     <div className="flex items-center justify-between p-3">
         <div className="flex items-center gap-4">
-            <div className={`p-2 rounded-full ${t.points > 0 ? 'bg-green-100 dark:bg-green-900/50' : 'bg-red-100 dark:bg-red-900/50'}`}>
+            <div className={`p-2 rounded-full ${t.points > 0 ? 'bg-green-100' : 'bg-red-100'}`}>
                 {t.points > 0
-                    ? <ArrowUpIcon className="w-5 h-5 text-green-600 dark:text-green-400" />
-                    : <ArrowDownIcon className="w-5 h-5 text-red-600 dark:text-red-400" />
+                    ? <ArrowUpIcon className="w-5 h-5 text-green-600" />
+                    : <ArrowDownIcon className="w-5 h-5 text-red-600" />
                 }
             </div>
             <div>
-                <p className="font-semibold text-[#263238] dark:text-neutral-200">{t.description}</p>
-                <p className="text-sm text-gray-500 dark:text-neutral-400">{t.timestamp}</p>
+                <p className="font-semibold text-[#263238]">{t.description}</p>
+                <p className="text-sm text-gray-500">{t.timestamp}</p>
             </div>
         </div>
         <p className={`font-bold text-lg ${t.points > 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -37,11 +37,11 @@ export default function PointsHistoryScreen() {
     return (
         <Screen title="Historial de Puntos">
             <div className="flex gap-2 mb-4">
-                <button onClick={() => setFilter('todos')} className={`px-4 py-2 rounded-full font-semibold text-sm ${filter === 'todos' ? 'bg-[#2E7D32] text-white' : 'bg-white dark:bg-neutral-800'}`}>Todos</button>
-                <button onClick={() => setFilter('acumulacion')} className={`px-4 py-2 rounded-full font-semibold text-sm ${filter === 'acumulacion' ? 'bg-[#2E7D32] text-white' : 'bg-white dark:bg-neutral-800'}`}>Acumulados</button>
-                <button onClick={() => setFilter('canje')} className={`px-4 py-2 rounded-full font-semibold text-sm ${filter === 'canje' ? 'bg-[#2E7D32] text-white' : 'bg-white dark:bg-neutral-800'}`}>Canjeados</button>
+                <button onClick={() => setFilter('todos')} className={`px-4 py-2 rounded-full font-semibold text-sm ${filter === 'todos' ? 'bg-[#2E7D32] text-white' : 'bg-white'}`}>Todos</button>
+                <button onClick={() => setFilter('acumulacion')} className={`px-4 py-2 rounded-full font-semibold text-sm ${filter === 'acumulacion' ? 'bg-[#2E7D32] text-white' : 'bg-white'}`}>Acumulados</button>
+                <button onClick={() => setFilter('canje')} className={`px-4 py-2 rounded-full font-semibold text-sm ${filter === 'canje' ? 'bg-[#2E7D32] text-white' : 'bg-white'}`}>Canjeados</button>
             </div>
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-sm divide-y divide-gray-100 dark:divide-neutral-700">
+            <div className="bg-white rounded-2xl shadow-sm divide-y divide-gray-100">
                 {filteredTransactions.map(t => <TransactionItem key={t.id} transaction={t} />)}
             </div>
         </Screen>

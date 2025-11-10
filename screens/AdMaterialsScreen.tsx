@@ -4,11 +4,11 @@ import { DownloadIcon } from '../components/icons';
 
 // FIX: Using React.FC for the component type signature clarifies to TypeScript that this is a React component, which correctly handles special props like 'key' and resolves the type error during mapping.
 const AdMaterialCard: React.FC<{ title: string, imageUrl: string }> = ({ title, imageUrl }) => (
-    <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm overflow-hidden group">
+    <div className="bg-white rounded-xl shadow-sm overflow-hidden group">
         <img src={imageUrl} alt={title} className="w-full h-24 object-cover" />
         <div className="p-3">
-            <p className="font-semibold text-sm text-[#263238] dark:text-neutral-200 truncate">{title}</p>
-            <button className="w-full mt-2 flex items-center justify-center gap-1.5 bg-gray-100 dark:bg-neutral-700 text-xs font-semibold py-1.5 rounded-md hover:bg-gray-200 dark:hover:bg-neutral-600 transition-colors">
+            <p className="font-semibold text-sm text-[#263238] truncate">{title}</p>
+            <button className="w-full mt-2 flex items-center justify-center gap-1.5 bg-gray-100 text-xs font-semibold py-1.5 rounded-md hover:bg-gray-200 transition-colors">
                 <DownloadIcon className="w-4 h-4" />
                 Descargar
             </button>

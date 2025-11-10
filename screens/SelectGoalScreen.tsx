@@ -6,14 +6,14 @@ import { CheckCircleIcon } from '../components/icons';
 
 const GoalRewardCard: React.FC<{ reward: Reward, isSelected: boolean, onSelect: () => void }> = ({ reward, isSelected, onSelect }) => {
     return (
-        <button onClick={onSelect} className={`bg-white dark:bg-neutral-800 rounded-2xl shadow-sm p-4 w-full text-left relative transition-all border-2 ${isSelected ? 'border-[#2E7D32]' : 'border-transparent'}`}>
+        <button onClick={onSelect} className={`bg-white rounded-2xl shadow-sm p-4 w-full text-left relative transition-all border-2 ${isSelected ? 'border-[#2E7D32]' : 'border-transparent'}`}>
             {isSelected && (
                 <CheckCircleIcon className="w-6 h-6 text-white bg-[#2E7D32] rounded-full absolute -top-2 -right-2" />
             )}
             <div className="flex gap-4 items-center">
                 <img src={reward.imageUrl} alt={reward.name} className="w-16 h-16 rounded-lg object-cover" />
                 <div>
-                    <h3 className="font-bold text-lg text-[#263238] dark:text-neutral-200">{reward.name}</h3>
+                    <h3 className="font-bold text-lg text-[#263238]">{reward.name}</h3>
                     <p className="font-semibold text-[#2E7D32]">{reward.points} puntos</p>
                 </div>
             </div>
@@ -33,7 +33,7 @@ export default function SelectGoalScreen() {
 
     return (
         <Screen title="Seleccionar Objetivo">
-            <p className="text-neutral-600 dark:text-neutral-400 mb-4">Elige una recompensa como tu objetivo principal. ¡Te ayudaremos a seguir tu progreso en la pantalla de inicio!</p>
+            <p className="text-neutral-600 mb-4">Elige una recompensa como tu objetivo principal. ¡Te ayudaremos a seguir tu progreso en la pantalla de inicio!</p>
             
             <div className="space-y-3">
                 {suggestedRewards.map(reward => (

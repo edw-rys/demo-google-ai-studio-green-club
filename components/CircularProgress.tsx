@@ -33,7 +33,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
     <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
       <svg className="w-full h-full" viewBox={`0 0 ${size} ${size}`}>
         <circle
-          className="text-gray-200 dark:text-neutral-700"
+          className="text-gray-200"
           stroke="currentColor"
           strokeWidth={strokeWidth}
           fill="transparent"
