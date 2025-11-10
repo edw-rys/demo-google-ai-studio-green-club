@@ -1,156 +1,147 @@
-import React, { useState, useEffect } from 'react';
-import { HomeVariant, Level, Screen } from '../types';
+import React, { useState, useRef, useEffect, UIEvent } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { MOCK_PROMOS, MOCK_QUICK_ACTIONS, MOCK_TRANSACTIONS, REWARDS, LEVEL_DATA } from '../constants';
+import { Screen } from '../types';
+import { LeafIcon, ScanLineIcon } from '../components/icons';
 
-import AppBar from '../components/AppBar';
-import LevelBanner from '../components/LevelBanner';
-import ScanButton, { ScanFab } from '../components/ScanButton';
-import GoalCard from '../components/GoalCard';
-import PromoCarousel from '../components/PromoCarousel';
-import QuickActions from '../components/QuickActions';
-import RecentActivity from '../components/RecentActivity';
-import { SunIcon, MoonIcon, SeedIcon } from '../components/icons';
+const promoBanners = [
+    "https://greenlife.com.ec/wp-content/uploads/2020/08/Banner-1@2x.png",
+    "https://greenlife.com.ec/wp-content/uploads/2020/08/Banner-2@2x.png",
+    "https://greenlife.com.ec/wp-content/uploads/2020/08/Banner-3@2x.png"
+];
 
-const SkeletonLoader = () => (
-    <div className="p-4 space-y-4">
-        <div className="bg-gray-200 dark:bg-neutral-800 h-8 w-3/4 rounded-md animate-pulse"></div>
-        <div className="bg-gray-200 dark:bg-neutral-800 h-20 w-full rounded-xl animate-pulse"></div>
-        <div className="bg-gray-200 dark:bg-neutral-800 h-16 w-full rounded-xl animate-pulse"></div>
-        <div className="flex space-x-4">
-            <div className="bg-gray-200 dark:bg-neutral-800 h-24 w-1/2 rounded-xl animate-pulse"></div>
-            <div className="bg-gray-200 dark:bg-neutral-800 h-24 w-1/2 rounded-xl animate-pulse"></div>
+const PromoCarousel = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const carouselRef = useRef<HTMLDivElement>(null);
+
+    // Debounce scroll handler
+    const handleScroll = () => {
+        if (carouselRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+            const itemWidth = scrollWidth / promoBanners.length;
+            const newIndex = Math.round(scrollLeft / itemWidth);
+            setCurrentIndex(newIndex);
+        }
+    };
+
+    return (
+        <div className="mt-6">
+            <div
+                ref={carouselRef}
+                onScroll={handleScroll}
+                className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar"
+                style={{ scrollBehavior: 'smooth' }}
+            >
+                {promoBanners.map((src, index) => (
+                    <div key={index} className="snap-center flex-shrink-0 w-full">
+                        <img src={src} alt={`Promo banner ${index + 1}`} className="w-full h-auto rounded-2xl" />
+                    </div>
+                ))}
+            </div>
+            <div className="flex justify-center gap-2 mt-4">
+                {promoBanners.map((_, index) => (
+                    <div
+                        key={index}
+                        className={`w-2 h-2 rounded-full transition-colors ${
+                            currentIndex === index ? 'bg-gray-700' : 'bg-gray-300'
+                        }`}
+                    />
+                ))}
+            </div>
         </div>
-    </div>
-);
-
-const OfflineBanner = () => (
-  <div className="bg-yellow-500 text-black text-center p-2 text-sm font-semibold">
-    Sin conexión. Se sincronizará al volver.
-  </div>
-);
-
-const VariantSwitcher: React.FC<{
-  variant: HomeVariant;
-  setVariant: (variant: HomeVariant) => void;
-}> = ({ variant, setVariant }) => (
-  <div className="flex justify-center p-2 bg-neutral-200 dark:bg-neutral-800 space-x-1 rounded-full mx-4 mb-4 text-sm">
-    {(['Scanner-first', 'Goal-first', 'Promos-first'] as HomeVariant[]).map((v) => (
-      <button
-        key={v}
-        onClick={() => setVariant(v)}
-        className={`px-3 py-1 rounded-full font-semibold transition-colors duration-200 ${
-          variant === v ? 'bg-white dark:bg-black text-[#2E7D32]' : 'text-neutral-600 dark:text-neutral-400'
-        }`}
-      >
-        {v.split('-')[0]}
-      </button>
-    ))}
-  </div>
-);
-
-const EmprendedorBadge = () => (
-    <div className="inline-flex items-center gap-1.5 bg-[#A5D6A7] text-[#1B5E20] font-bold text-xs px-2.5 py-1 rounded-full ml-4 -mt-1">
-        <SeedIcon className="w-3 h-3" />
-        Emprendedor
-    </div>
-);
+    );
+};
 
 
 export default function HomeScreenv2() {
-  const { user, setCurrentScreen } = useAppContext();
-  const [variant, setVariant] = useState<HomeVariant>('Scanner-first');
-  const [isLoading, setIsLoading] = useState(true);
-  const [isOffline] = useState(false); // Set to true to test offline banner
+    const { user, setCurrentScreen } = useAppContext();
+    const points = user.points;
+    const goal = 1000;
+    const progress = Math.min(points / goal, 1);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+    const size = 200;
+    const strokeWidth = 14;
+    const center = size / 2;
+    const radius = center - strokeWidth / 2;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - progress * circumference;
 
-  // Empty state for new user
-  if (user.points === 0) {
     return (
-        <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-gray-50 dark:bg-neutral-900">
-            <div className="text-6xl mb-4">🌱</div>
-            <h2 className="text-2xl font-bold text-[#263238] dark:text-neutral-200">
-              Aún no tienes Green Points
-            </h2>
-            <p className="text-neutral-500 dark:text-neutral-400 mt-2 mb-6">
-              ¡Empieza a acumular puntos con tu primera compra!
-            </p>
-            <button 
-              onClick={() => setCurrentScreen(Screen.Scan)}
-              className="w-full max-w-xs bg-[#2E7D32] text-white font-bold py-4 px-5 rounded-2xl text-lg hover:bg-green-800 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg transform active:scale-95">
-                Escanear mi primera factura
-            </button>
+        <div className='flex-1 flex flex-col bg-[#F7F7F7]'>
+            <header className="bg-[#386641] text-white text-center py-4 rounded-b-3xl flex-shrink-0 shadow-md">
+                <h1 className="text-2xl font-bold tracking-wider">Green Life</h1>
+            </header>
+
+            <main className="flex-1 overflow-y-auto p-4 pb-28">
+                <section className="flex justify-between items-start">
+                    <div>
+                        <h2 className="text-3xl font-bold text-black">¡Hola, {user.name}!</h2>
+                        <p className="text-sm text-gray-600">Nivel y Green Points acumulados</p>
+                    </div>
+                    <div className="bg-[#FBE49B] rounded-xl px-3 py-2 flex flex-col items-center gap-0 shadow-sm">
+                        <span className="text-xs font-semibold text-black/70 -mb-1">Tiene acumulado</span>
+                        <div className="flex items-center gap-1">
+                            <LeafIcon className="w-5 h-5 text-[#386641]" />
+                            <span className="font-bold text-2xl text-black">{points}</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="bg-[#0B521D] rounded-3xl p-6 pt-10 mt-4 relative flex flex-col items-center text-white shadow-lg">
+                    <div className="absolute top-4 text-center">
+                        <span className="text-sm font-semibold text-white/80">500 greenpoints</span>
+                    </div>
+
+                    <div className="relative w-[200px] h-[200px]">
+                        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
+                            <circle
+                                stroke="#386641"
+                                fill="transparent"
+                                strokeWidth={strokeWidth - 6}
+                                r={radius}
+                                cx={center}
+                                cy={center}
+                            />
+                            <circle
+                                stroke="white"
+                                fill="transparent"
+                                strokeWidth={strokeWidth}
+                                strokeDasharray={circumference}
+                                strokeDashoffset={offset}
+                                strokeLinecap="round"
+                                r={radius}
+                                cx={center}
+                                cy={center}
+                            />
+                        </svg>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                            <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-Platino@2x.png" alt="Hoja de Plata" className="w-16 h-16"/>
+                            <span className="font-bold text-lg mt-1">Hoja de plata</span>
+                        </div>
+                        <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-de-bronce@2x.png" alt="Bronce" className="w-12 h-12 absolute -bottom-2 -left-4"/>
+                        <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-Platino@2x.png" alt="Plata" className="w-14 h-14 absolute -top-5 left-1/2 -translate-x-1/2"/>
+                        <img src="https://greenlife.com.ec/wp-content/uploads/2020/08/Hoja-Dorada@2x.png" alt="Oro" className="w-12 h-12 absolute -bottom-2 -right-4"/>
+                    </div>
+                     <div className="w-full flex justify-between px-2 mt-2">
+                        <span className="text-xs font-semibold text-white/80">0 greenpoints</span>
+                        <span className="text-xs font-semibold text-white/80">1000 greenpoints</span>
+                    </div>
+
+                </section>
+                
+                <button className="w-full bg-white border border-gray-200 rounded-2xl py-3 mt-6 flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-transform">
+                    <LeafIcon className="w-5 h-5 text-[#386641]"/>
+                    <span className="font-bold text-black text-md">¿Cómo obtener Green Points?</span>
+                </button>
+
+                <PromoCarousel />
+
+                <button 
+                    onClick={() => setCurrentScreen(Screen.Scan)}
+                    className="w-full bg-[#F9D13B] text-black font-bold py-4 px-5 rounded-2xl text-lg mt-6 flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-transform">
+                    <ScanLineIcon className="w-7 h-7" strokeWidth="2.5" />
+                    Escanear mis facturas
+                </button>
+            </main>
         </div>
-    )
-  }
-
-
-  const { nextLevel, goal } = LEVEL_DATA[user.level] as { nextLevel?: Level, goal: number };
-  const goalReward = REWARDS[0]; // Airfryer as mock goal
-
-  const renderHomeScreenContent = () => {
-    if (isLoading) return <SkeletonLoader />;
-
-    const commonSections = (
-      <>
-        <QuickActions actions={MOCK_QUICK_ACTIONS} />
-        <RecentActivity transactions={MOCK_TRANSACTIONS.slice(0, 3)} />
-      </>
     );
-
-    switch (variant) {
-      case 'Scanner-first':
-        return (
-          <>
-            <LevelBanner user={user} nextLevel={nextLevel} goal={goal} />
-            <div className="px-4 mt-4">
-              <ScanButton />
-            </div>
-            <GoalCard user={user} goalReward={goalReward} />
-            <PromoCarousel promos={MOCK_PROMOS} />
-            {commonSections}
-          </>
-        );
-      case 'Goal-first':
-        return (
-          <>
-            <GoalCard user={user} goalReward={goalReward} isHero />
-            <div className="px-4 mt-4">
-              <ScanButton />
-            </div>
-            <LevelBanner user={user} nextLevel={nextLevel} goal={goal} />
-            <PromoCarousel promos={MOCK_PROMOS} />
-            {commonSections}
-          </>
-        );
-      case 'Promos-first':
-        return (
-          <>
-            <PromoCarousel promos={MOCK_PROMOS} isHero />
-            <LevelBanner user={user} nextLevel={nextLevel} goal={goal} />
-            <GoalCard user={user} goalReward={goalReward} />
-            {commonSections}
-            <ScanFab />
-          </>
-        );
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className='flex-1 flex flex-col'>
-      <main className="flex-1 overflow-y-auto pb-24">
-        {isOffline && <OfflineBanner />}
-        <AppBar user={user} />
-        <EmprendedorBadge />
-        <VariantSwitcher variant={variant} setVariant={setVariant} />
-        {renderHomeScreenContent()}
-      </main>
-    </div>
-  );
 }

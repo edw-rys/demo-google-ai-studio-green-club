@@ -153,3 +153,28 @@ export const ArrowUpIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export const ArrowDownIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" {...props}><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" /></svg>
 );
+
+// New Icons for Redesign
+export const LeafIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 20 20" fill="currentColor" {...props}>
+        <path d="M11.63 3.68a.75.75 0 00-1.26 0l-5.25 8.5a.75.75 0 00.63 1.07h10.5a.75.75 0 00.63-1.07l-5.25-8.5zM9.44 5.18a.75.75 0 00-1.26.02L3.8 12.12a.75.75 0 00.63 1.13h4.02a.75.75 0 00.75-.75V5.18z" clipRule="evenodd" fillRule="evenodd" transform="rotate(25 10 10)" />
+    </svg>
+);
+
+export const MedalIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M12 16.5V22l-4-2 4-4 4 4-4 2z"/>
+        <circle cx="12" cy="8.5" r="5.5"/>
+        <path d="M8.5 8.5l2 2 4-4"/>
+    </svg>
+);
+
+export const ScanLineIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+        <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+        <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+        <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+        <path d="M7 12h10"/>
+    </svg>
+);
